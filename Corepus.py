@@ -1,7 +1,5 @@
 import numpy as np 
-import pandas as pd 
-import spacy as sp 
-from spacy.lang.ar import stop_words
+import pandas as pd  
 from collections import Counter,defaultdict
 import os 
 import re
@@ -104,11 +102,11 @@ class Corpus():
             print("..Failed to Save")
 
 
-datapath =  "D:\\df\\ai\\arabic_articls\\Sports"
+datapath =  "Data\\Sports"
 engein = Corpus(data_path=datapath)
 
-corpus = engein.get_corpus()
-engein.save_corpus(corpus=corpus,dir="Corpus.csv")
+corpus = engein.get_corpus(win=2)
+engein.save_corpus(corpus=corpus,dir="Corpus2.csv")
 
 
 
