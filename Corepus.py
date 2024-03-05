@@ -32,15 +32,20 @@ class Corpus():
     def _cleaning(self,text:str):
         stop = ["»","«","#","&","*",".",",","،",":"]
         for char in stop:
-            text = text.replace(char,"")
+            text = text.replace(char," ")
         return text 
-
+    def preprocess(self,text):
+        x = self._replace_matches(text)
+        x = self._cleaning(x)
+        return x
+    
     def get_Data(self):
         texts = []
         for file in self.files :
             with open(os.path.join(self.data_path,file),encoding="UTf-8") as file :
                 text = file.read()
-                texts.append(self._cleaning(self._replace_matches(text)))
+                texts.append(self.preprocess(text))
+        self.texts = texts
         return texts
 
 
@@ -83,7 +88,30 @@ class Corpus():
         df = pd.DataFrame(data)
 
         return df
+    @staticmethod
+    def get_static_best_frequency(words:dict,best=10):
+ 
 
+        data = defaultdict(list)
+        for key in words.keys() :
+        
+            data["name"].append(key) 
+            for i in range(best) :
+                try :
+                    data[str(i)].append(str(words[key][i][0])+"|"+str(words[key][i][1]))
+                except :
+                    data[str(i)].append(None)
+
+        df = pd.DataFrame(data)
+
+        return df
+
+    def save_testing_data(self):
+        texts = self.get_Data()
+        print("writting")
+        with open("testing.txt","w",encoding="utf-8") as file:
+            for text in texts[-500:]:
+                file.write(text+"\n")
 
     
     def get_corpus(self,win=1,best=10):
@@ -102,11 +130,11 @@ class Corpus():
             print("..Failed to Save")
 
 
-datapath =  "Data\\Sports"
+datapath =  "D:\df\\ai\\arabic_articls\Sports"
 engein = Corpus(data_path=datapath)
-
-corpus = engein.get_corpus(win=2)
-engein.save_corpus(corpus=corpus,dir="Corpus2.csv")
+# engein.save_testing_data()
+corpus = engein.get_corpus(win=4)
+engein.save_corpus(corpus=corpus,dir="Corpus4.csv")
 
 
 
