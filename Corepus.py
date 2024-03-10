@@ -133,8 +133,8 @@ class Corpus():
 datapath =  "D:\df\\ai\\arabic_articls\Sports"
 engein = Corpus(data_path=datapath)
 # engein.save_testing_data()
-corpus = engein.get_corpus(win=4)
-engein.save_corpus(corpus=corpus,dir="Corpus4.csv")
+corpus = engein.get_corpus(win=1)
+engein.save_corpus(corpus=corpus,dir="Ramzey/Corpus1.csv")
 
 
 

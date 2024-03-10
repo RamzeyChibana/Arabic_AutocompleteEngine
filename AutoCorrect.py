@@ -5,9 +5,9 @@ from sklearn.metrics import accuracy_score,f1_score
 from tqdm import tqdm
 import time
 
-corpus = "Corpus.csv"
-corpus2 = "Corpus2.csv"
-corpus3 = "Corpus3.csv"
+corpus = "nadir/next_word1.csv"
+corpus2 = "nadir/next_word2.csv"
+corpus3 = "nadir/next_word3.csv"
 # corpus4 = "Corpus4.csv"
 
 
@@ -108,7 +108,7 @@ class AutoCorrect():
         if len(result)==0:
             return "nothing"
         probs = self.get_probibilties(result,threshold=thershold)
-        recomanded = self.best_distrubtion(probs)
+        recomanded = self.sample_distrubtion(probs)
 
         return recomanded
 
@@ -138,7 +138,7 @@ class AutoCorrect():
             
             pbar.update(1)
         pbar.close()
-
+   
         print(accuracy_score(targets,preds))
 cor = AutoCorrect()
 
